@@ -5,6 +5,7 @@ const scoreDisplay = document.getElementById("score");
 const livesDisplay = document.getElementById("lives");
 const gameOverText = document.getElementById("game-over");
 const finalScoreText = document.getElementById("final-score");
+const restartBtn = document.getElementById("restart-btn");
 
 const target = document.getElementById("target");
 const container = document.getElementById("game-container");
@@ -15,7 +16,7 @@ const targetSize = target.clientWidth;
 
 let moveInterval;
 
-// Genera un color aleatorio
+// Función para generar color aleatorio
 function getRandomColor() {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -42,6 +43,19 @@ function gameOver() {
     finalScoreText.textContent = score;
 }
 
+// Reinicia el juego
+function restartGame() {
+    score = 0;
+    lives = 5;
+    scoreDisplay.textContent = score;
+    livesDisplay.textContent = lives;
+    gameOverText.style.display = "none";
+    target.style.display = "block";
+    moveTarget();
+    clearInterval(moveInterval);
+    moveInterval = setInterval(moveTarget, 800);
+}
+
 // Click sobre el cuadro
 target.addEventListener("click", () => {
     score++;
@@ -60,6 +74,9 @@ container.addEventListener("click", (e) => {
     }
 });
 
+// Botón reiniciar
+restartBtn.addEventListener("click", restartGame);
+
 // Inicializa el juego
 moveTarget();
-moveInterval = setInterval(moveTarget, 800); // Se mueve cada 0.8s
+moveInterval = setInterval(moveTarget, 800);
