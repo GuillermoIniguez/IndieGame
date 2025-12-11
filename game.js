@@ -10,13 +10,16 @@ const restartBtn = document.getElementById("restart-btn");
 const target = document.getElementById("target");
 const container = document.getElementById("game-container");
 
+// 🎵 Música del juego
+const music = document.getElementById("game-music");
+
 const containerWidth = container.clientWidth;
 const containerHeight = container.clientHeight;
 const targetSize = target.clientWidth;
 
 let moveInterval;
 
-// Función para generar color aleatorio
+// Generar color aleatorio
 function getRandomColor() {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -26,7 +29,7 @@ function getRandomColor() {
     return color;
 }
 
-// Mueve el cuadro a posición aleatoria y cambia color
+// Mueve el cuadro
 function moveTarget() {
     const x = Math.random() * (containerWidth - targetSize);
     const y = Math.random() * (containerHeight - targetSize);
@@ -41,6 +44,8 @@ function gameOver() {
     target.style.display = "none";
     gameOverText.style.display = "block";
     finalScoreText.textContent = score;
+
+    music.pause();      // 🔇 Detener música
 }
 
 // Reinicia el juego
@@ -49,14 +54,20 @@ function restartGame() {
     lives = 5;
     scoreDisplay.textContent = score;
     livesDisplay.textContent = lives;
+
     gameOverText.style.display = "none";
     target.style.display = "block";
+
+    // 🎵 Reiniciar música
+    music.currentTime = 0;
+    music.play();
+
     moveTarget();
     clearInterval(moveInterval);
     moveInterval = setInterval(moveTarget, 800);
 }
 
-// Click sobre el cuadro
+// Click en el cuadro
 target.addEventListener("click", () => {
     score++;
     scoreDisplay.textContent = score;
@@ -68,6 +79,7 @@ container.addEventListener("click", (e) => {
     if (e.target.id !== "target") {
         lives--;
         livesDisplay.textContent = lives;
+
         if (lives <= 0) {
             gameOver();
         }
@@ -77,6 +89,8 @@ container.addEventListener("click", (e) => {
 // Botón reiniciar
 restartBtn.addEventListener("click", restartGame);
 
-// Inicializa el juego
+// Inicializar juego
 moveTarget();
+music.volume = 0.4;  // Volumen 40%
+music.play();        // 🎵 Iniciar música
 moveInterval = setInterval(moveTarget, 800);

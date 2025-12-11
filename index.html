@@ -11,11 +11,19 @@
     <h2 class="status">
         Puntaje: <span id="score">0</span> | Vidas: <span id="lives">5</span>
     </h2>
+
     <div id="game-container">
         <div id="target"></div>
     </div>
-    <p id="game-over" style="display:none;">¡Juego terminado! Tu puntaje final es: <span id="final-score"></span></p>
+
+    <p id="game-over" style="display:none;">
+        ¡Juego terminado! Tu puntaje final es: <span id="final-score"></span>
+    </p>
+
     <button id="restart-btn">Reiniciar Juego</button>
+
+    <!-- 🎵 AUDIO DEL JUEGO -->
+    <audio id="game-music" src="musica.mp3" loop></audio>
 
     <script src="game.js"></script>
 </body>
